@@ -1,0 +1,71 @@
+// Specific CSS for your home-page
+.dropup .hide-toggle.dropdown-toggle::after {
+  display: none !important;
+}
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.card-dashboard {
+  background-color: $white;
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.transactions-card {
+  margin-top: 16px;
+}
+
+.overview-title {
+  width: 100%;
+}
+
+h1 {
+  color: $medium-gray;
+  font-family: $headers-font;
+  font-size: 1.3rem;
+  text-transform: capitalize;
+  margin-top: 10px;
+}
+
+h5 {
+  color: $medium-gray;
+  font-weight: bolder;
+  padding-top: 2.3rem;
+  text-transform: capitalize;
+}
+
+p {
+  color: $medium-gray;
+  font-size: 1rem;
+  text-transform: capitalize;
+}
+
+a {
+  font-size: small;
+  text-decoration: none;
+}
+
+.filter-date {
+  margin-right: 16px;
+  height: fit-content;
+}
+
+@media screen and (min-width: 770px) {
+  .card-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .container-overview-date {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.overview-title {
+  width: 60%;
+}
+  }

@@ -1,0 +1,57 @@
+.footer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 100vw;
+  padding: 8px;
+  border: $medium-gray;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 16px;
+  background-color: $white;
+
+  .list {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+  }
+
+  .item {
+    list-style-type: none;
+    margin: 0 24px;
+  }
+
+  .item {
+    transition: all .2s ease-in-out;
+
+    &:hover {
+      color: $blue;
+      transform: scale(1.3);
+    }
+  }
+
+  .link{
+    color: $secondary;
+    font-size: 24px;
+
+    &:hover {
+      color: $blue;
+    }
+   }
+
+  .add {
+    position: relative;
+    top: -12px;
+    font-size: x-large;
+    color: $primary;
+    transition: all .2s ease-in-out;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .list {
+    padding: 0px;
+  }
+}

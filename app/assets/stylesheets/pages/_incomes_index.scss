@@ -1,0 +1,95 @@
+.income-container {
+  padding: 0 4px 10px 4px;
+}
+
+.notification {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+  background: white;
+  padding: 8px;
+  border-bottom: 1px solid $light-gray;
+
+  .icon-income {
+    font-size: 1.8rem;
+    color: $green-pool;
+    padding-right: 6px;
+  }
+
+  .notification-content {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-grow: 1;
+
+    .notification-description {
+      text-align: center;
+      width: 5.5rem;
+      padding: 2px 6px;
+      height: fit-content;
+      color: $medium-gray;
+      border-radius: 10px;
+      align-self: center;
+      font-size: 0.8rem;
+      }
+
+      .notification-title {
+        width: 7.2rem;
+        font-size: 0.7rem;
+      }
+    }
+
+    small {
+      color: $medium-gray;
+      font-weight: bold;
+      font-size: 0.7rem;
+    }
+
+    .notification-content p {
+      text-align: center;
+      margin-bottom: 0;
+      color: $medium-gray;
+    }
+
+    .notification-actions a {
+      color: $medium-gray;
+      margin-left: 12px;
+      font-size: 0.875rem;
+    }
+
+    .notification-actions a:hover {
+      color: $gray;
+    }
+  }
+
+@media screen and (min-width: 768px){
+  .income-container {
+    width: 70vw;
+    margin: 0 auto;
+  }
+
+  .notification {
+    .notification-content {
+      padding: 0 1.5rem;
+
+      small {
+        font-size: 0.85rem;
+      }
+
+      .notification-place {
+        width: 12rem;
+        font-size: 0.9rem;
+      }
+
+      .notification-category {
+        width: 6.25rem;
+      }
+    }
+  }
+
+  .filter-date {
+    width: 70vw;
+    margin: 0 auto;
+    padding-right: 1.5rem;
+  }
+}

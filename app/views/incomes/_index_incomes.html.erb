@@ -1,0 +1,25 @@
+<div class="income-container mt-3 mb-5">
+  <% if incomes.nil? %>
+    <p>You don't have any income yet</p>
+  <% else %>
+    <% incomes.each do |income| %>
+      <div class="notification">
+        <i class="fa-solid fa-money-bills icon-income"></i>
+        <div class="notification-content">
+          <p class="notification-date"><small><%= income.date.strftime("%d %b %Y") %></small></p>
+          <p class="notification-title"><%= income.title %></p>
+          <span class="notification-description"><%= income.description %></span>
+          <p class="notification-value"><small><%= number_to_currency(income.value, unit: "R$ ", separator: ",", delimiter: ".") %></small></p>
+        </div>
+        <div class="notification-actions">
+          <%= link_to edit_income_path(income) do %>
+            <i class="fas fa-pencil-alt text-primary"></i>
+          <% end %>
+          <%= link_to income_path(income), data:{ turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
+            <i class="far fa-trash-alt text-danger"></i>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

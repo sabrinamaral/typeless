@@ -1,0 +1,30 @@
+.search-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1.5rem auto;
+
+  .search-form {
+    display: flex;
+
+    .search-btn {
+      border-top-right-radius: .9rem;
+      border-bottom-right-radius: .9rem;
+    }
+
+    .search-input {
+      border-top-left-radius: .9rem;
+      border-bottom-left-radius: .9rem;
+    }
+
+    .search-input::placeholder {
+      color: $silver
+    }
+  }
+}
+
+@media screen and (min-width: 510px) {
+  .search-form {
+    width: 40%;
+  }
+}

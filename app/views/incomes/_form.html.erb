@@ -1,0 +1,14 @@
+<div class="row justify-content-center pb-5">
+  <div class="col-md-8 col-sm-12">
+    <div class="form-control">
+      <%= simple_form_for income do |f| %>
+        <%= f.input :date, as: :date, html5: true, input_html: {value: Date.today} %>
+        <%= f.input :title %>
+        <%= f.input :description %>
+        <%= f.input :quantity, input_html: {value: 1, inputmode: "numeric"} %>
+        <%= f.input :value %>
+        <%= f.button :submit, class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+</div>

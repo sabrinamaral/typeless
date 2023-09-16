@@ -1,0 +1,47 @@
+<div class="expense-container mt-2 mb-5">
+  <% if expenses.nil? %>
+    <p>You don't have any expense yet</p>
+  <% else %>
+    <% expenses.each do |expense| %>
+      <div class="accordion" id="accordionExpenses">
+        <div class="accordion-item" style="border: none;">
+          <div class="accordion-header">
+            <button class="container bg-white border border-0" type="button" data-bs-toggle="collapse" data-bs-target="#<%= expense.id %>" aria-expanded="true" aria-controls="<%= expense.id %>">
+              <div class="notification">
+                <i class="fa-solid fa-file-invoice-dollar icon-expense"></i>
+                <div class="notification-content">
+                  <p class="notification-date"><small><%= expense.date.strftime("%d %b %Y") %></small></p>
+                  <p class="notification-place"><%= expense.place %></p>
+                  <span class="notification-category"><%= expense.category %></span>
+                  <p class="notification-value"><small><%= number_to_currency(expense.value, unit: "R$ ", separator: ",", delimiter: ".") %></small></p>
+                </div>
+                <% unless current_page?("") || current_page?("") %>
+                  <div class="notification-actions text-end mt-2">
+                    <%= link_to edit_expense_path(expense) do %>
+                      <i class="fas fa-pencil-alt text-primary"></i>
+                    <% end %>
+                    <%= link_to expense_path(expense), data:{ turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
+                      <i class="far fa-trash-alt ms-2 text-danger"></i>
+                    <% end %>
+                  </div>
+                <% end  %>
+              </div>
+            </button>
+          </div>
+          <% unless expense.ocr_hash.nil? %>
+            <div id="<%= expense.id %>" class="accordion-collapse collapse" data-bs-parent="#accordionExpenses">
+              <div class="accordion-body text-start text-secondary">
+                <p>Items :</p>
+                <div class="d-flex flex-column">
+                  <% expense.ocr_hash["line_items"].each do |item| %>
+                    <li class="item_acordion"><%= item["text"] %></li>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

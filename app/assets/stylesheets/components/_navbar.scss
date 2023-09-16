@@ -1,0 +1,28 @@
+.navbar-lewagon {
+  height: 70px;
+  width: 100%;
+  background-color: $white;
+  padding: 12px;
+  margin: 0;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h1 {
+    font-family: $title-font;
+    color: $primary;
+    font-size: 2.2rem;
+  }
+
+  .navbar-brand img {
+    width: 70px;
+  }
+
+  .navbar-collapse {
+    flex-basis: 0;
+    flex-grow: 0;
+  }
+}

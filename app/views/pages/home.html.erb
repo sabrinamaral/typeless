@@ -1,0 +1,32 @@
+<div class="container mt-3 mb-5 py-3 rounded-4" style="background-color: #f4f4f4">
+  <div class="d-flex flex-column rounded-4 shadow-sm p-3 my-2" style="background-color: #fff" >
+    <span class="fs-3 fw-bold <%= @color %> "> <%= number_to_currency(@balance, unit: "R$ ", separator: ",", delimiter: ".") %> </span>
+    <span>Total balance from all accounts</span>
+  </div>
+  <% if @earnings == 0 && @spendings == 0 %>
+    <div class="container text-center rounded-4 shadow-sm", style="background-color: #fff" >
+      <%= image_tag "no_date.jpg", height: 335, width: 335 %>
+      <p class="lh-1 fs-1 fw-bold text-secondary">No data found</p>
+      <p class="pb-5">Add an expense or income with the floating button</p>
+    </div>
+  <% else %>
+    <div class="ms-2 container-overview-date">
+      <div class="overview-title">
+        <h1>Overview</h1>
+        <p>View all of your Income and Spendings.</p>
+      </div>
+      <!-- Filter days -->
+      <%= render "/shared/filter_days", current_path: request.path, days: @days%>
+    </div>
+    <div class="d-flex">
+      <div class="container text-center">
+        <!-- Charts -->
+        <%= render "charts", days: @days %>
+        <!-- Third row -->
+        <div class="card-dashboard border transactions-card">
+          <h5>Your top 5 expenses</h5>
+          <%= render 'expenses/index_expenses', expenses: @top %>
+        </div>
+      </div>
+    <% end %>
+  </div>

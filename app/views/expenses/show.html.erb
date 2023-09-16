@@ -1,0 +1,11 @@
+<div class="d-flex align-items-center justify-content-center">
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title"><%= @expense.category %></h5>
+      <h6 class="card-subtitle mb-2 text-body-secondary"><%= @expense.place %></h6>
+      <p class="card-text"><%= @expense.date %></p>
+      <p class="card-text"><%= @expense.value %></p>
+      <%= link_to "dashboard", root_path %>
+    </div>
+  </div>
+</div>

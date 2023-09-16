@@ -1,0 +1,17 @@
+<div class="modal-body text-center">
+  <div class="row justify-content-center pb-5">
+    <div class="col-8">
+      <%= simple_form_for expense do |f| %>
+        <%= f.input :category, collection: Expense::CATEGORY , selected: 1 %>
+        <%= f.input :payment_type, collection: Expense::PAYMENT_TYPE, selected: 1 %>
+        <%= f.input :date, as: :hidden, html5: true , input_html: {value: Date.today} %>
+        <%= f.input :place, as: :hidden, input_html: {value: "place"} %>
+        <%= f.input :quantity, as: :hidden, input_html: {value: 1, inputmode: "numeric"} %>
+        <%= f.input :unity, as: :hidden, input_html: {value: "un"} %>
+        <%= f.input :value, as: :hidden, input_html: {value: "10"} %>
+        <%= f.input :photo%>
+        <%= f.button :submit, class: 'btn btn-primary btn-sm' %>
+      <% end %>
+    </div>
+  </div>
+</div>

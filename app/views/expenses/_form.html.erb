@@ -1,0 +1,21 @@
+<% date = expense.date.nil? ? Date.today : expense.date %>
+<% place = expense.place.nil? ? "place" : expense.place %>
+<% quantity = expense.quantity.nil? ? 1 : expense.quantity %>
+<% unity = expense.unity.nil? ? "un" : expense.unity %>
+<% value = expense.value.nil? ? 10 : expense.value %>
+<div class="row justify-content-center pb-5">
+  <div class="col-md-8 col-sm-12">
+    <div class="form-control">
+      <%= simple_form_for expense do |f| %>
+        <%= f.input :date, html5: true , input_html: {value: date} %>
+        <%= f.input :place %>
+        <%= f.input :quantity, input_html: {value: quantity, inputmode: "numeric"} %>
+        <%= f.input :unity, input_html: {value: unity} %>
+        <%= f.input :value %>
+        <%= f.input :category, collection: Expense::CATEGORY%>
+        <%= f.input :payment_type, collection: Expense::PAYMENT_TYPE%>
+        <%= f.button :submit, class: 'btn btn-primary btn-sm' %>
+      <% end %>
+    </div>
+  </div>
+</div>

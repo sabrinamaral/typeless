@@ -1,0 +1,8 @@
+<div class="container my-5 pb-4">
+  <%= render "shared/remote_modal", title: "New Income" do %>
+    <%= render "form", income: @income %>
+  <% end %>
+  <%= link_to incomes_path, style:"text-decoration: none" do %>
+    <i class="fa-solid fa-reply-all"></i>
+  <% end %>
+</div>

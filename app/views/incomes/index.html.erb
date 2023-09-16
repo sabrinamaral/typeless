@@ -1,0 +1,10 @@
+<div class="container">
+  <!-- Search form -->
+  <%= render partial: "search/form" %>
+  <!-- Filter days -->
+  <%= render "/shared/filter_days", current_path: request.path, days: @days%>
+  <!-- List of incomes -->
+  <div class="mt-2" >
+    <%= render "index_incomes", incomes: @incomes %>
+  </div>
+</div>

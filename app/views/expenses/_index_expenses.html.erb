@@ -15,7 +15,7 @@
                   <span class="notification-category"><%= expense.category %></span>
                   <p class="notification-value"><small><%= number_to_currency(expense.value, unit: "R$ ", separator: ",", delimiter: ".") %></small></p>
                 </div>
-                <% unless current_page?("") || current_page?("") %>
+                <% if current_page?(controller: 'expenses', action: 'index') %>
                   <div class="notification-actions text-end mt-2">
                     <%= link_to edit_expense_path(expense) do %>
                       <i class="fas fa-pencil-alt text-primary"></i>

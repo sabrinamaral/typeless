@@ -1,8 +1,11 @@
 <div class="container">
   <!-- Search form -->
   <%= render partial: "search/form" %>
-  <!-- Filter days -->
-  <%= render "/shared/filter_days", current_path: request.path, days: @days %>
+  <div class="d-flex">
+    <h1>Expenses</h1>
+    <!-- Filter days -->
+    <%= render "/shared/filter_days", current_path: request.path, days: @days %>
+  </div>
   <!-- List of expenses -->
   <div class="mt-4 pb-5" >
     <%= render "index_expenses", expenses: @expenses %>

@@ -1,0 +1,19 @@
+<div class="card-dashboard border card-progress-bar">
+  <h5>Tracking expenses by your income</h5>
+  <div class="card-info pt-5 px-5">
+    <p>earnings: <%= number_to_currency(@earnings, unit: "R$ ", separator: ",", delimiter: ".") %></p>
+    <p>expenses: <%= number_to_currency(@spendings, unit: "R$ ", separator: ",", delimiter: ".") %></p>
+  </div>
+  <div class="card-bar pb-5 px-5">
+    <div class="bar">
+      <div class="progress" style="width:<%=@percentage%>%; background: <%=@percentage.to_i > 80 ? "#a93a35" : "#4065c5"%>"></div>
+    </div>
+    <% if @percentage.nil? %>
+      <p>There is no income information yet 😕</p>
+    <% elsif @percentage.to_i > 100  %>
+      <%= "you spent #{@percentage - 100}% more than your income" %>
+    <% else %>
+      <%= "you have spent #{@percentage}% of your income" %>
+    <% end %>
+  </div>
+</div>

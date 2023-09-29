@@ -4,7 +4,7 @@ class ExpensesController < ApplicationController
   before_action :set_user, only: :index
 
   def index
-    @days = params[:days]&.to_i || 7
+    @days = params[:days]&.to_i || 30
     @expenses = current_user.expenses.where(date: @days.days.ago..Date.today).order(:date)
     @expense = Expense.new
   end

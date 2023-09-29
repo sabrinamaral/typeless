@@ -6,7 +6,7 @@ class PagesController < ApplicationController
 
   def home
     @balance = @earnings - @spendings
-    if @balance == 0
+    if @balance.zero?
       @color = "text-dark"
     elsif @balance.negative?
       @color = "text-danger"

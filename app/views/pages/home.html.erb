@@ -1,6 +1,13 @@
+ <% if @balance.zero? %>
+  <% color = "text-dark" %>
+<% elsif @balance.negative? %>
+  <% color = "text-danger" %>
+<% else %>
+  <%  color = "text-success" %>
+<%  end %>
 <div class="container mt-3 mb-5 py-3 rounded-4" style="background-color: #f4f4f4">
   <div class="d-flex flex-column rounded-4 shadow-sm p-3 my-2" style="background-color: #fff" >
-    <span class="fs-3 fw-bold <%= @color %> "> <%= number_to_currency(@balance, unit: "R$ ", separator: ",", delimiter: ".") %> </span>
+    <span class="fs-3 fw-bold <%= color %> "> <%= number_to_currency(@balance, unit: "R$ ", separator: ",", delimiter: ".") %> </span>
     <span>Total balance from all accounts</span>
   </div>
   <% if @earnings == 0 && @spendings == 0 %>
@@ -19,16 +26,14 @@
       <%= render "/shared/filter_days", current_path: request.path, days: @days%>
     </div>
     <div class="container text-center">
-      <!-- Charts -->
+      <!-- Charts Render -->
       <div class="card-grid">
         <%= render "charts", days: @days %>
-        <!-- Track expenses by income card -->
-        <%= render "track_by_income_card" %>
       </div>
       <!-- Top Five -->
       <div class="card-dashboard border transactions-card">
         <h5>Your top 5 expenses</h5>
-        <%= render 'expenses/index_expenses', expenses: @top %>
+        <%= render 'expenses/index_expenses', expenses: @top_five %>
       </div>
     </div>
   <% end %>

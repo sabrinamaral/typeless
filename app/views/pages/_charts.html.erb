@@ -1,25 +1,40 @@
-<% if days %>
-  <% incomes_data = current_user.incomes.where(date: days.days.ago..Date.today).group_by_day(:date, format: "%b %e").sum(:value)%>
-  <% expenses_data = current_user.expenses.where(date: days.days.ago..Date.today).group_by_day(:date, format: "%b %e").sum(:value)%>
-  <% expenses = current_user.expenses.where(date: days.days.ago..Date.today).group(:category).sum(:value)%>
-<% else %>
-  <% incomes_data = current_user.incomes.where(date: Date.today - 365..Date.today).group_by_month(:date, format: "%b %Y").sum(:value)%>
-  <% expenses_data = current_user.expenses.where(date: Date.today - 365..Date.today).group_by_month(:date, format: "%b %Y").sum(:value)%>
-  <% expenses = current_user.expenses.where(date: Date.today - 365..Date.today).group(:category).sum(:value)%>
-<% end %>
 <!-- First Row -->
+<!-- COLUMN CHART -->
 <div class="card-dashboard border">
   <h5>Income and expenses by period</h5>
   <%= column_chart [
-      { name: 'Expenses', data: expenses_data},
-      { name: 'Income', data: incomes_data}
+      { name: 'Expenses', data: @expenses_by_month},
+      { name: 'Income', data: @incomes_by_month}
     ], stacked: false, colors: ["AB1B1B", "#4065c5"] %>
 </div>
+<!-- PIE CHART -->
 <div class="card-dashboard border">
   <h5>Expenses by categories</h5>
-  <%= pie_chart expenses %>
+  <%= pie_chart @expenses_by_category %>
 </div>
+<!-- Second Row -->
+<!-- BAR CHART -->
 <div class="card-dashboard border">
   <h5>Ranking of expenses</h5>
-  <%= bar_chart expenses.sort_by{|k,v| v}.reverse, loading: "Loading...", empty: "No data", colors: ["#4065c5"] %>
+  <%= bar_chart @expenses_by_category.sort_by{|k,v| v}.reverse, loading: "Loading...", empty: "No data", colors: ["#4065c5"] %>
+</div>
+<!-- PROGRESS BAR -->
+<div class="card-dashboard border card-progress-bar">
+  <h5>Tracking expenses by your income</h5>
+  <div class="card-info pt-5 px-5">
+    <p>earnings: <%= number_to_currency(@earnings, unit: "R$ ", separator: ",", delimiter: ".") %></p>
+    <p>expenses: <%= number_to_currency(@spendings, unit: "R$ ", separator: ",", delimiter: ".") %></p>
+  </div>
+  <div class="card-bar pb-5 px-5">
+    <div class="bar">
+      <div class="progress" style="width:<%=@percentage%>%; background: <%=@percentage.to_i > 80 ? "#a93a35" : "#4065c5"%>"></div>
+    </div>
+    <% if @percentage.nil? %>
+      <p>There is no income information yet 😕</p>
+    <% elsif @percentage.to_i > 100  %>
+      <%= "you spent #{@percentage - 100}% more than your income" %>
+    <% else %>
+      <%= "you have spent #{@percentage}% of your income" %>
+    <% end %>
+  </div>
 </div>

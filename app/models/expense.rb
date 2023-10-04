@@ -1,18 +1,29 @@
 class Expense < ApplicationRecord
   include PgSearch::Model
-  pg_search_scope :search_all_fields, against: [:description, :place, :category, :payment_type, :value],
-  using: { tsearch: { prefix: true } }
+  pg_search_scope :search_all_fields, against: %i[description place category payment_type value],
+                                      using: { tsearch: { prefix: true } }
+
   PAYMENT_TYPE = ["cash", "credit card", "debit card", "pix"]
   CATEGORY = [
-    "restaurant",
-    "groceries",
-    "transport",
-    "drug store",
-    "rent",
-    "clothes",
-    "health insurance",
-    "house maintenance",
-    "others"
+    "Groceries",
+    "Natural warehouse",
+    "Shopping personal",
+    "Shopping house",
+    "Utilities",
+    "Eating out",
+    "Leisure",
+    "Transport",
+    "Body corporate",
+    "Health & Beauty",
+    "Drug Store",
+    "Cleaning & maintenance",
+    "Taxes",
+    "Streeming",
+    "Miscellaneous",
+    "Rent's expenses",
+    "Health Insurance",
+    "Travel",
+    "Fixed assets / Goods"
   ]
 
   belongs_to :user

@@ -14,7 +14,7 @@
     <div class="container text-center rounded-4 shadow-sm", style="background-color: #fff" >
       <%= image_tag "no_date.jpg", height: 335, width: 335 %>
       <p class="lh-1 fs-1 fw-bold text-secondary">No data found</p>
-      <p class="pb-5">Add an expense or income with the floating button</p>
+      <p class="pb-5">Add an expense or income with the plus button</p>
     </div>
   <% else %>
     <div class="ms-2 container-overview-date">
@@ -23,7 +23,9 @@
         <p>View all of your Income and Spendings.</p>
       </div>
       <!-- Filter days -->
-      <%= render "/shared/filter_days", current_path: request.path, days: @days%>
+      <%= render "/shared/filter_days", current_path: request.path,locals: {days: @days, expenses: @spendings} %>
+      <!-- Datepicker -->
+      <%= render "/shared/date_picker" %>
     </div>
     <div class="container text-center">
       <!-- Charts Render -->

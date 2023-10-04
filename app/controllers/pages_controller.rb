@@ -1,28 +1,37 @@
 class PagesController < ApplicationController
   before_action :new_expense, only: %i[home new]
-  before_action :set_user, only: %i[home top]
+  before_action :set_user, only: %i[home new create]
 
   def home
     @days = params[:days]&.to_i
-    @earnings = 0 if @earnings.nil?
-    @spendings = 0 if @spendings.nil?
+
     if @days
       @incomes_by_month = Income.where(user: @user, date: @days.days.ago..Date.today).group_by_day(:date, format: "%b %e").sum(:value)
       @expenses_by_month = Expense.where(user: @user, date: @days.days.ago..Date.today).group_by_day(:date, format: "%b %e").sum(:value)
       @expenses_by_category = Expense.where(user: @user, date: @days.days.ago..Date.today).group(:category).sum(:value)
-      @earnings = Income.where(user: current_user, date: @days.days.ago..Date.today).pluck(:value).reduce(:+)
-      @spendings = Expense.where(user: current_user, date: @days.days.ago..Date.today).pluck(:value).reduce(:+)
-      @top_five = Expense.where(user: current_user, date: @days.days.ago..Date.today).order(value: :desc).limit(5)
+      @earnings = Income.where(user: @user, date: @days.days.ago..Date.today).pluck(:value).reduce(:+)
+      @spendings = Expense.where(user: @user, date: @days.days.ago..Date.today).pluck(:value).reduce(:+)
+      @top_five = Expense.where(user: @user, date: @days.days.ago..Date.today).order(value: :desc).limit(5)
+    elsif params[:start_date]
+      @incomes_by_month = Income.where(user: @user, date: params[:start_date].to_datetime..params[:end_date].to_datetime).group_by_day(:date, format: "%b %e").sum(:value)
+      @expenses_by_month = Expense.where(user: @user, date: params[:start_date].to_datetime..params[:end_date].to_datetime).group_by_day(:date, format: "%b %e").sum(:value)
+      @expenses_by_category = Expense.where(user: @user, date: params[:start_date].to_datetime..params[:end_date].to_datetime).group(:category).sum(:value)
+      @earnings = Income.where(user: @user, date: params[:start_date].to_datetime..params[:end_date].to_datetime).pluck(:value).reduce(:+)
+      @spendings = Expense.where(user: @user, date: params[:start_date].to_datetime..params[:end_date].to_datetime).pluck(:value).reduce(:+)
+      @top_five = Expense.where(user: @user, date: params[:start_date].to_datetime..params[:end_date].to_datetime).order(value: :desc).limit(5)
     else
       @incomes_by_month = Income.where(user: @user, date: "#{Date.current.year}-01-01".to_datetime..Date.current).group_by_month(:date, format: "%b %Y").sum(:value)
       @expenses_by_month = Expense.where(user: @user, date: "#{Date.current.year}-01-01".to_datetime..Date.current).group_by_month(:date, format: "%b %Y").sum(:value)
       @expenses_by_category = Expense.where(user: @user, date: "#{Date.current.year}-01-01".to_datetime..Date.current).group(:category).sum(:value)
-      @earnings = Income.where(user: current_user, date: "#{Date.current.year}-01-01".to_datetime..Date.today).pluck(:value).reduce(:+)
-      @spendings = Expense.where(user: current_user, date: "#{Date.current.year}-01-01".to_datetime..Date.today).pluck(:value).reduce(:+)
-      @top_five = Expense.where(user: current_user, date: "#{Date.current.year}-01-01".to_datetime..Date.today).order(value: :desc).limit(5)
+      @earnings = Income.where(user: @user, date: "#{Date.current.year}-01-01".to_datetime..Date.today).pluck(:value).reduce(:+)
+      @spendings = Expense.where(user: @user, date: "#{Date.current.year}-01-01".to_datetime..Date.today).pluck(:value).reduce(:+)
+      @top_five = Expense.where(user: @user, date: "#{Date.current.year}-01-01".to_datetime..Date.today).order(value: :desc).limit(5)
     end
-
+    @earnings = 0 if @earnings.nil?
+    @spendings = 0 if @spendings.nil?
     @balance = @earnings - @spendings
+    return if @spendings.zero? || @earnings.zero?
+
     @percentage = ((@spendings / @earnings) * 100).round
   end
 

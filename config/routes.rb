@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
-  get 'search', to: 'search#index'
-  devise_for :users
   root to: "pages#home"
+  devise_for :users
   resources :expenses
   resources :incomes
   get "new", to: "pages#new", as: :new_pages

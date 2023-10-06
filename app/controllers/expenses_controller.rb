@@ -2,18 +2,24 @@ class ExpensesController < ApplicationController
   include ApplicationHelper
   before_action :find_expense, only: %i[show edit update destroy]
   before_action :set_user, only: :index
+  before_action :new_expense, only: %i[new]
 
   def index
-    @days = params[:days]&.to_i || 30
-    @expenses = current_user.expenses.where(date: @days.days.ago..Date.today).order(:date)
-    @expense = Expense.new
+    @days = params[:days]&.to_i
+
+    if params[:start_date]
+      @expenses = current_user.expenses.where(date: params[:start_date].to_date..params[:end_date].to_date).order(:date)
+    elsif @days
+      @expenses = current_user.expenses.where(date: @days.days.ago..Date.today).order(:date)
+    else
+      @expenses = current_user.expenses.where(date: "#{Date.current.year}-01-01".to_date..Date.today).order(date: :desc)
+    end
   end
 
   def show
   end
 
   def new
-    @expense = Expense.new
   end
 
   def create
@@ -73,4 +79,9 @@ class ExpensesController < ApplicationController
   def set_user
     @user = current_user
   end
+
+  def new_expense
+    @expense = Expense.new
+  end
+
 end

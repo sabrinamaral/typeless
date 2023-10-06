@@ -1,6 +1,6 @@
 class IncomesController < ApplicationController
   before_action :set_user, only: :index
-  before_action :fins_income, only: %i[show edit update destroy]
+  before_action :find_income, only: %i[show edit update destroy]
 
   def index
     @days = params[:days]&.to_i

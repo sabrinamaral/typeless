@@ -1,7 +1,6 @@
 class PagesController < ApplicationController
   before_action :new_expense, only: %i[home new]
   before_action :set_user, only: %i[home new create]
-  before_action :calculate_balance_percent, only: :home
 
   def home
     @days = params[:days]&.to_i
@@ -13,6 +12,13 @@ class PagesController < ApplicationController
     else
       filter_by_curr_year(@user)
     end
+
+    @earnings = 0 if @earnings.nil?
+    @spendings = 0 if @spendings.nil?
+    @balance = @earnings - @spendings
+    return if @earnings.zero?
+
+    @percentage = ((@spendings / @earnings) * 100).round
   end
 
   def new
@@ -43,15 +49,6 @@ class PagesController < ApplicationController
 
   def set_user
     @user = current_user
-  end
-
-  def calculate_balance_percent
-    @earnings = 0 if @earnings.nil?
-    @spendings = 0 if @spendings.nil?
-    @balance = @earnings - @spendings
-    return if @earnings.zero?
-
-    @percentage = ((@spendings / @earnings) * 100).round
   end
 
   def filter_by_days(user, days)

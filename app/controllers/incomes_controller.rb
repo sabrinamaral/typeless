@@ -1,14 +1,20 @@
 class IncomesController < ApplicationController
   before_action :set_user, only: :index
+  before_action :fins_income, only: %i[show edit update destroy]
 
   def index
-    @days = params[:days]&.to_i || 30
-    @incomes = current_user.incomes.where(date: @days.days.ago..Date.today).order(:date)
-    @expense = Expense.new
+    @days = params[:days]&.to_i
+
+    if params[:start_date]
+      @incomes = current_user.incomes.where(date: params[:start_date].to_date..params[:end_date].to_date).order(:date)
+    elsif @days
+      @incomes = current_user.incomes.where(date: @days.days.ago..Date.today).order(:date)
+    else
+      @incomes = current_user.incomes.where(date: "#{Date.current.year}-01-01".to_date..Date.today).order(date: :desc)
+    end
   end
 
   def show
-    @income = Income.find(params[:id])
   end
 
   def new
@@ -33,12 +39,9 @@ class IncomesController < ApplicationController
   end
 
   def edit
-    @income = Income.find(params[:id])
   end
 
   def update
-    @income = Income.find(params[:id])
-
     if @income.update(income_params)
       redirect_to incomes_path, notice: "Income was successfully updated."
     else
@@ -47,7 +50,6 @@ class IncomesController < ApplicationController
   end
 
   def destroy
-    @income = Income.find(params[:id])
     @income.destroy
 
     redirect_to incomes_path, notice: "Income was successfully deleted."
@@ -61,5 +63,9 @@ class IncomesController < ApplicationController
 
   def set_user
     @user = current_user
+  end
+
+  def find_income
+    @income = Income.find(params[:id])
   end
 end

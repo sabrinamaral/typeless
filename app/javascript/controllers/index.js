@@ -12,3 +12,6 @@ application.register("popover", PopoverController)
 
 import RemoteModalController from "./remote_modal_controller"
 application.register("remote-modal", RemoteModalController)
+
+import GChartController from "./g_chart_controller"
+application.register("g-chart", GChartController)

@@ -4,13 +4,18 @@ class IncomesController < ApplicationController
 
   def index
     @days = params[:days]&.to_i
+    @incomes = current_user.incomes.includes(:user).order(:date)
 
-    if params[:start_date]
-      @incomes = current_user.incomes.where(date: params[:start_date].to_date..params[:end_date].to_date).order(:date)
-    elsif @days
-      @incomes = current_user.incomes.where(date: @days.days.ago..Date.today).order(:date)
+    if params[:query].present?
+      @incomes = @incomes.search_all_fields(params[:query])
     else
-      @incomes = current_user.incomes.where(date: "#{Date.current.year}-01-01".to_date..Date.today).order(date: :desc)
+      if params[:start_date]
+        @incomes = @incomes.where(date: params[:start_date].to_date..params[:end_date].to_date)
+      elsif @days
+        @incomes = @incomes.where(date: @days.days.ago..Date.today)
+      else
+        @incomes = @incomes.where(date: "#{Date.current.year}-01-01".to_date..Date.today)
+      end
     end
   end
 

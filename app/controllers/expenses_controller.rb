@@ -6,13 +6,18 @@ class ExpensesController < ApplicationController
 
   def index
     @days = params[:days]&.to_i
-
-    if params[:start_date]
-      @expenses = current_user.expenses.where(date: params[:start_date].to_date..params[:end_date].to_date).order(:date)
-    elsif @days
-      @expenses = current_user.expenses.where(date: @days.days.ago..Date.today).order(:date)
+    @expenses = current_user.expenses.includes(:user).order(:date)
+    if
+      params[:query].present?
+      @expenses = @expenses.search_all_fields(params[:query])
     else
-      @expenses = current_user.expenses.where(date: "#{Date.current.year}-01-01".to_date..Date.today).order(date: :desc)
+      if params[:start_date]
+        @expenses = @expenses.where(date: params[:start_date].to_date..params[:end_date].to_date)
+      elsif @days
+        @expenses = @expenses.where(date: @days.days.ago..Date.today)
+      else
+        @expenses = @expenses.where(date: "#{Date.current.year}-01-01".to_date..Date.today)
+      end
     end
   end
 

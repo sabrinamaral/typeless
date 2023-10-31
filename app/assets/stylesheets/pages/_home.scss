@@ -49,9 +49,41 @@ a {
   text-decoration: none;
 }
 
-.filter-date {
+.filter-days {
   margin-right: 16px;
   height: fit-content;
+  align-items: center;
+}
+
+.form-datepicker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-datepicker .btn-datepicker {
+  border: none;
+  border-radius: 8px;
+  background-color: $blue;
+  color: $white;
+  font-size: 1rem;
+  text-align: center;
+  cursor: pointer;
+  margin: 0 8px;
+}
+
+#start_date,
+#end_date {
+  width: 100%;
+  height: 40px;
+  border: $silver solid 1px;
+  border-radius: 8px;
+  margin-right: 4px;
+  background-color: $white;
+  color: $medium-gray;
+  font-size: 1rem;
+  text-align: center;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 770px) {
@@ -63,9 +95,9 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.overview-title {
-  width: 60%;
-}
   }
+
+  .overview-title {
+    width: 60%;
+  }
+}

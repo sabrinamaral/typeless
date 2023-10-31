@@ -1,5 +1,5 @@
-<%= form_with method: "get" do |form| %>
+<%= form_with method: "get", class: "form-datepicker" do |form| %>
   <%= form.date_field :start_date %>
   <%= form.date_field :end_date %>
-  <%= form.submit "Search" %>
+  <%= form.submit "search", class: "btn-datepicker" %>
 <% end %>

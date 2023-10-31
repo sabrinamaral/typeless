@@ -31,38 +31,38 @@
       border-radius: 10px;
       align-self: center;
       font-size: 0.8rem;
-      }
-
-      .notification-title {
-        width: 7.2rem;
-        font-size: 0.7rem;
-      }
     }
 
-    small {
-      color: $medium-gray;
-      font-weight: bold;
+    .notification-title {
+      width: 7.2rem;
       font-size: 0.7rem;
-    }
-
-    .notification-content p {
-      text-align: center;
-      margin-bottom: 0;
-      color: $medium-gray;
-    }
-
-    .notification-actions a {
-      color: $medium-gray;
-      margin-left: 12px;
-      font-size: 0.875rem;
-    }
-
-    .notification-actions a:hover {
-      color: $gray;
     }
   }
 
-@media screen and (min-width: 768px){
+  small {
+    color: $medium-gray;
+    font-weight: bold;
+    font-size: 0.7rem;
+  }
+
+  .notification-content p {
+    text-align: center;
+    margin-bottom: 0;
+    color: $medium-gray;
+  }
+
+  .notification-actions a {
+    color: $medium-gray;
+    margin-left: 12px;
+    font-size: 0.875rem;
+  }
+
+  .notification-actions a:hover {
+    color: $gray;
+  }
+}
+
+@media screen and (min-width: 768px) {
   .income-container {
     width: 70vw;
     margin: 0 auto;
@@ -87,7 +87,7 @@
     }
   }
 
-  .filter-date {
+  .filter-days {
     width: 70vw;
     margin: 0 auto;
     padding-right: 1.5rem;

@@ -7,8 +7,7 @@ class ExpensesController < ApplicationController
   def index
     @days = params[:days]&.to_i
     @expenses = current_user.expenses.includes(:user).order(:date)
-    if
-      params[:query].present?
+    if params[:query].present?
       @expenses = @expenses.search_all_fields(params[:query])
     else
       if params[:start_date]
@@ -69,8 +68,7 @@ class ExpensesController < ApplicationController
       ocr_hash: ocr_hash,
       value: ocr_hash["total"],
       date: ocr_hash["date"],
-      place: ocr_hash["vendor"]["name"]
-    )
+      place: ocr_hash["vendor"].nil? ? nil : ocr_hash["vendor"]["name"]    )
   end
 
   def expense_params

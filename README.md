@@ -62,3 +62,5 @@ to remove node_modules file and then run yarn again
 - Chartkick
 - Bootstrap
 - Font-awesome
+
+![Typeless Dashboard](/app/assets/images/typeless.png)

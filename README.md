@@ -1,8 +1,12 @@
-Readme
+## Typeless
 
 📝 This app was created as the final project for Le Wagon Bootcamp by Sabrina Amaral, Bernardo Brotelli, Fernando Mussolini and Henrique Valeri.
 
 🎯 After completing the bootcamp, I took it upon myself to refine the app's accuracy and functionality. My goal is not only to replace my personal budget spreadsheet with this app but also to gain a comprehensive understanding of its user experience. By using this app in my daily life, I will be able to adapt it to real-world situations and develop my newly acquired skills to their fullest potential.
+
+## Dashboard Preview
+
+<img src="/app/assets/images/typeless.png" alt="App Screenshot" width="400"/>
 
 ## Instalation instrunctions
 
@@ -63,4 +67,4 @@ to remove node_modules file and then run yarn again
 - Bootstrap
 - Font-awesome
 
-![Typeless Dashboard](/app/assets/images/typeless.png)
+
